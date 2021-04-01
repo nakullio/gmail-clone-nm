@@ -8,8 +8,6 @@ import { useHistory } from 'react-router';
 function EmailRow({ id, title, subject, description, time }) {
     const history = useHistory(); 
 
-
-
     return (
         <div onClick={()=> history.push("/mail")} className="emailRow">
             
