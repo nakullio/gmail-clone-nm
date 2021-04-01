@@ -31,6 +31,8 @@ function App() {
 
         </Switch>
         </div>
+
+        <SendMail />
       </div>
     </Router>
   );
