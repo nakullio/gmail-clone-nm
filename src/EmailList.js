@@ -22,16 +22,11 @@ function EmailList() {
     // useEffect is a piece of code which basically says, (its a react hook)
     // says run this piece of code when the email list component loads, run at once, as well when the variable changes inside that
     useEffect(()=> {
-        db.collection('emails')
-        .orderBy('timestamp', 'decs')
-        .onSnapshot(snapshot => 
-            setEmails(
-                snapshot.docs.map(doc => ({
-                id: doc.id,
-                data: doc.data(),
-            }))
-        )
-        );
+        db.collection('emails').orderBy('timestamp', 'desc').onSnapshot(snapshot => setEmails(snapshot.docs.map(doc => ({ 
+            id: doc.id,
+            data: doc.data(),
+         }))))
+
     }, [])
 
     return (
@@ -72,8 +67,9 @@ function EmailList() {
             </div>
 
             <div className="emailList__List">
-                {emails.map(({id, data: {to, subject, message, timestamp
-                }}) => (
+                {emails.map(({ id, data:{ to, subject, message, timestamp } }) => (
+                    // render out the email object
+                    // with return the emailrow
                     <EmailRow 
                     id={id}
                     key={id}
@@ -83,6 +79,9 @@ function EmailList() {
                     time={new Date(timestamp?.seconds * 1000).toUTCString()}
                     />
                 ))}
+
+
+
                 <EmailRow 
                 title="Twitch"
                 subject="Hey fellow streamer!!!"
