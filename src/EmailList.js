@@ -13,8 +13,27 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import './EmailList.css'
 import Section from './Section';
 import EmailRow from './EmailRow';
+import { db } from './firebase';
 
 function EmailList() {
+    // state is a way keeping variables in react
+    const [emails, setEmails] = useState([]);
+
+    // useEffect is a piece of code which basically says, (its a react hook)
+    // says run this piece of code when the email list component loads, run at once, as well when the variable changes inside that
+    useEffect(()=> {
+        db.collection('emails')
+        .orderBy('timestamp', 'decs')
+        .onSnapshot(snapshot => 
+            setEmails(
+                snapshot.docs.map(doc => ({
+                id: doc.id,
+                data: doc.data(),
+            }))
+        )
+        );
+    }, [])
+
     return (
         <div className="emailList">
             <div className="emailList__settings">
