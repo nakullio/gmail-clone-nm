@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState} from 'react';
 import {Checkbox , IconButton} from '@material-ui/core'
 import ArrowDropDownIcon  from '@material-ui/icons/ArrowDropDown';
 import RedoIcon from '@material-ui/icons/Redo';
@@ -72,6 +72,17 @@ function EmailList() {
             </div>
 
             <div className="emailList__List">
+                {emails.map(({id, data: {to, subject, message, timestamp
+                }}) => (
+                    <EmailRow 
+                    id={id}
+                    key={id}
+                    title={to}
+                    subject={subject}
+                    description={message}
+                    time={new Date(timestamp?.seconds * 1000).toUTCString()}
+                    />
+                ))}
                 <EmailRow 
                 title="Twitch"
                 subject="Hey fellow streamer!!!"
